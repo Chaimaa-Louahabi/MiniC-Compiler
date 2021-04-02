@@ -16,6 +16,8 @@ test{
         int age;
         float moyenne;
     }Etudiant;
+    struct Etudiant Jean = {18, 19.99};
+    float meanJean = Jean.moyenne;
     //tester conditional
     int k = i<2 ? 3 : 4;
     if (true) {
