@@ -1,0 +1,34 @@
+test{
+	int i = 1;
+    //tester couple type
+    <int, int> couple = <2, 3>;
+    int x = fst couple;
+    int y = snd couple;
+    //tester array type
+    int table = new int[3];
+    table[2] = 2;
+    int v = (int) 1;
+    //tester pointer type
+    int *ptr = &i;
+    int j = *ptr;
+    //tester struct type
+    typedef struct etudiant{
+        int age;
+        float moyenne;
+    }Etudiant;
+    //tester conditional
+    int k = i<2 ? 3 : 4;
+    if (true) {
+        i = i - 1 ;
+    }
+    //tester repetition
+    while (i <100) {
+        i = i+1;
+    }
+    //tester function declaration
+    int max(int a, int b) {
+        return a>b? a:b;
+    }
+    //tester function call
+    k = max(5,6);
+}
