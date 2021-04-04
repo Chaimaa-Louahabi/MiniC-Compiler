@@ -83,7 +83,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-	    return _scope.contains(this.name)?false: true ;
+	    return (_scope.contains(this.name)?false: true) && value.collect(_scope) ;
 	}
 	
 	/* (non-Javadoc)
@@ -91,7 +91,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in ConstantDeclaration.");
+		return value.resolve(_scope) ;
 	}
 
 	/* (non-Javadoc)

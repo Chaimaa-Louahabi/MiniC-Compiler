@@ -1,12 +1,13 @@
 test{
 	int i = 1;
+	const int N = 100;
     //tester couple type
     <int, int> couple = <2, 3>;
     int x = fst couple;
     int y = snd couple;
     //tester array type
     int table = new int[3];
-    table[2] = 2;
+    table[2] = 2 + N;
     int v = (int) 1;
     //tester pointer type
     int *ptr = &i;
@@ -36,4 +37,5 @@ test{
     }
     //tester function call
     k = max(5,6);
+    print "hello" + N ;
 }
