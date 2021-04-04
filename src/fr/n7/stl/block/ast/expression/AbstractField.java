@@ -3,8 +3,10 @@ package fr.n7.stl.block.ast.expression;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
-import fr.n7.stl.block.ast.type.Type;
+import fr.n7.stl.block.ast.type.RecordType;
+import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
+import fr.n7.stl.util.Logger;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -41,7 +43,7 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "collect is undefined in AbstractField.");
+		return this.record .collect(_scope);
 	}
 
 	/* (non-Javadoc)
@@ -49,7 +51,21 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "resolve is undefined in AbstractField.");
+		/*if (_scope.knows(name)) {
+			if (((RecordType)record).contains(name)) {
+				this.field = ((RecordType)record).get(name);
+				return record.resolve(_scope);
+			}else {
+				Logger.error(record + " has not a field called "+name);
+				return false;
+			}
+		}else {
+			System.out.println(record.getClass().getSimpleName() );//IdentifierAccess
+			Logger.error(record + " is not a record.");
+			return false;
+		}*/
+		//TODO : initialiser l'atttribut field
+		return record.resolve(_scope);
 	}
 
 	/**

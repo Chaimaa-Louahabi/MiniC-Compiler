@@ -82,9 +82,20 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
+		for (LabelDeclaration l : this.labels) {
+			_scope.register(l);
+		}
 		return true;
 	}
-
+	
+	public boolean contains(String _name) {
+		boolean _result = false;
+		Iterator<LabelDeclaration> _iter = this.labels.iterator();
+		while (_iter.hasNext() && (! _result)) {
+			_result = _result || _iter.next().getName().contentEquals(_name);
+		}
+		return _result;
+	}
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.scope.Declaration#getName()
 	 */

@@ -8,6 +8,7 @@ import java.util.List;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.*;
 import fr.n7.stl.block.ast.scope.Declaration;
+import fr.n7.stl.block.ast.type.declaration.*;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.tam.ast.Fragment;
@@ -97,6 +98,14 @@ public class Block {
                     Logger.error("The identifier " + ((TypeDeclaration)_instruction).getName() + " is already used.");
                     return false;
                 }
+            }
+            if (_instruction instanceof LabelDeclaration) {
+            	if (this.tds.accepts((LabelDeclaration) _instruction)) {
+            		tds.register((LabelDeclaration) _instruction);
+            	} else {
+            		Logger.error("The identifier " + ((LabelDeclaration)_instruction).getName() + " is already used.");
+            		return false;
+            	}
             }
 		}
         return true;
