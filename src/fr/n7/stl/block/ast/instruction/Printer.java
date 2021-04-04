@@ -37,7 +37,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in Printer.");
+		return this.parameter.collect(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -45,7 +45,7 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in Printer.");
+		return this.parameter.resolve(_scope);
 	}
 
 	/* (non-Javadoc)
