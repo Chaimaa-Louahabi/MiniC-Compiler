@@ -68,7 +68,7 @@ public class Block {
             if (_instruction instanceof ConstantDeclaration) {
                 if (this.tds.accepts((ConstantDeclaration) _instruction)) {
                     tds.register((ConstantDeclaration) _instruction);
-                    System.out.println(((ConstantDeclaration)_instruction).getName());
+                    //System.out.println(((ConstantDeclaration)_instruction).getName());
                 } else {
                     Logger.error("The identifier " + ((ConstantDeclaration)_instruction).getName() + " is already used.");
                     return false;
@@ -77,7 +77,6 @@ public class Block {
             if (_instruction instanceof FunctionDeclaration) {
                 if (this.tds.accepts((FunctionDeclaration) _instruction)) {
                     tds.register((FunctionDeclaration) _instruction);
-                    System.out.println(((FunctionDeclaration)_instruction).getName());
                 } else {
                     Logger.error("The identifier " + ((FunctionDeclaration)_instruction).getName() + " is already used.");
                     return false;
@@ -86,7 +85,6 @@ public class Block {
             if (_instruction instanceof VariableDeclaration) {
                 if (this.tds.accepts((VariableDeclaration) _instruction)) {
                     tds.register((VariableDeclaration) _instruction);
-                    System.out.println(((VariableDeclaration)_instruction).getName());
                 } else {
                     Logger.error("The identifier " + ((VariableDeclaration)_instruction).getName() + " is already used.");
                     return false;
