@@ -95,7 +95,6 @@ public class Block {
             if (_instruction instanceof TypeDeclaration) {
                 if (this.tds.accepts((TypeDeclaration) _instruction)) {
                     tds.register((TypeDeclaration) _instruction);
-                    System.out.println(((TypeDeclaration)_instruction).getName());
                 } else {
                     Logger.error("The identifier " + ((TypeDeclaration)_instruction).getName() + " is already used.");
                     return false;
