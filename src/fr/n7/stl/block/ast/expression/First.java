@@ -9,6 +9,8 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.block.ast.type.CoupleType;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for an expression extracting the first component in a couple.
@@ -58,7 +60,12 @@ public class First implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in First.");
+		if (this.target.getType() instanceof CoupleType) {
+			return ((CoupleType)this.target.getType()).getFirst();
+		} else {
+			Logger.error(this.target +" is not a couple type.");
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)
