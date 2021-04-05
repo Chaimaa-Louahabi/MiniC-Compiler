@@ -58,7 +58,6 @@ public class Second implements Expression {
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
 		return target.collect(_scope);
-
 	}
 
 	/* (non-Javadoc)

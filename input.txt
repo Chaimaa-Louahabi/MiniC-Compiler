@@ -6,7 +6,7 @@ test{
     int x = fst couple;
     int y = snd couple;
     //tester array type
-    int table = new int[3];
+    int table []= new int[3];
     table[2] = 2 + N;
     int v = (int) 1;
     //tester pointer type
