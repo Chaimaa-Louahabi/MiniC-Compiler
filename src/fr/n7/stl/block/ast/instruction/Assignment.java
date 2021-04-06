@@ -65,7 +65,7 @@ public class Assignment implements Instruction, Expression {
 	@Override
 	public Type getType() {
 		//TODO it's not void ?? the pupose is not clear 
-		return this.assignable.getType();
+		return this.value.getType();
 	}
 
 	/* (non-Javadoc)
