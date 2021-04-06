@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a conditional expression.
@@ -74,7 +75,14 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in ConditionalExpression.");
+		Type thenType =  thenExpression.getType();
+		Type elseType =  elseExpression.getType();
+		if (thenType.equalsTo(elseType)) {
+			return thenType;
+		} else {
+			Logger.error("Type mismatch! then and else blocks should have the same type");
+			return null;
+		}
 	}
 
 	/* (non-Javadoc)
