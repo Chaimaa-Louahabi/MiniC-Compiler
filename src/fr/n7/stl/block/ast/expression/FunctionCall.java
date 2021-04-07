@@ -109,7 +109,7 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in FunctionCall.");
+		return this.function.getType();
 	}
 
 	/* (non-Javadoc)
