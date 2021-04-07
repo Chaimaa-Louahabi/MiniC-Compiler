@@ -6,9 +6,10 @@ package fr.n7.stl.block.ast.instruction;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
-import fr.n7.stl.block.ast.scope.Scope;
+import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -22,7 +23,7 @@ public class Repetition implements Instruction {
 
 	protected Expression condition;
 	protected Block body;
-
+	protected SymbolTable tds;
 	public Repetition(Expression _condition, Block _body) {
 		this.condition = _condition;
 		this.body = _body;
@@ -41,7 +42,8 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		return condition.collect(_scope) && body.collect(_scope);
+		this.tds = new SymbolTable(_scope);
+		return condition.collect(_scope) && body.collect(tds);
 	}
 	
 	/* (non-Javadoc)
@@ -57,7 +59,7 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType undefined in Repetition.");
+		return body.checkType() && condition.getType().equalsTo(AtomicType.BooleanType);
 	}
 
 
