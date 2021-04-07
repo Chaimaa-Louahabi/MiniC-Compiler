@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
+import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -74,7 +75,12 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Conditional.");
+		if (this.elseBranch != null) {
+			return thenBranch.checkType() && elseBranch.checkType() && condition.getType().equalsTo(AtomicType.BooleanType);
+        } else {
+            return thenBranch.checkType() && condition.getType().equalsTo(AtomicType.BooleanType);
+        }
+		
 	}
 
 	/* (non-Javadoc)
