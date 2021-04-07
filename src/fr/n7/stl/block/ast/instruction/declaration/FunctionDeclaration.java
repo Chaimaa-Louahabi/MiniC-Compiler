@@ -102,6 +102,8 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
         this.tds = new SymbolTable(_scope);
+        // Représenter la valeur de retour par une variable de nom "return" dont le type est le type de retour de la fonction
+        tds.register(new VariableDeclaration("return", this.type,null));
         for (ParameterDeclaration p: this.parameters) {
             tds.register(p);
         }
@@ -121,8 +123,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Complete me! return function");
-		//return this.body.checkType();//return.type == this.type
+		return this.body.checkType();
 	}
 
 	/* (non-Javadoc)
