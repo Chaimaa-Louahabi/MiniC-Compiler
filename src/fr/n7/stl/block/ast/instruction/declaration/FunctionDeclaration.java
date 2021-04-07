@@ -121,7 +121,8 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
+		throw new SemanticsUndefinedException( "Complete me! return function");
+		//return this.body.checkType();//return.type == this.type
 	}
 
 	/* (non-Javadoc)
