@@ -61,7 +61,9 @@ public class TypeDeclaration implements Declaration, Instruction {
         if(!res) {
             Logger.error("Couldn't find " + this.name + " type declaration");
             return res;
-        }else{return res;}
+        } else {
+        	return res;
+        }
 	}
 
 	/**

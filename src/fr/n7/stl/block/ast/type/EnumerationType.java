@@ -112,4 +112,7 @@ public class EnumerationType implements Type, Declaration {
 		return this;
 	}
 
+	public List<LabelDeclaration> getLabels() {
+		return this.labels;
+	}
 }

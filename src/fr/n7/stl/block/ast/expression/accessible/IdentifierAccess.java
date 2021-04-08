@@ -117,29 +117,3 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 	}
 
 }
-
-	/*public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		if (((HierarchicalScope<Declaration>)_scope).knows(this.name)) {
-			Declaration _declaration = _scope.get(this.name);
-			if (_declaration instanceof VariableDeclaration) {
-				this.expression = new VariableAccess((VariableDeclaration) _declaration);
-				return true;
-			} else {
-				if (_declaration instanceof ConstantDeclaration) {
-					// TODO : refactor the management of Constants
-					this.expression = new ConstantAccess((ConstantDeclaration) _declaration);
-					return true;
-				} else if  (_declaration instanceof ParameterDeclaration){
-                    this.expression = new ParameterAccess((ParameterDeclaration) _declaration);
-				    return true;
-				}else {
-					Logger.error("The declaration for " + this.name + " is of the wrong kind.");
-					return false;
-                }
-			}
-		} else {
-			Logger.error("The identifier " + this.name + " has not been found.");
-			return false;	
-		}
-	}
-	*/

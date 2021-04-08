@@ -1,6 +1,5 @@
 package fr.n7.stl.block.ast.expression;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.RecordType;
@@ -51,20 +50,13 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		/*if (_scope.knows(name)) {
-			if (((RecordType)record).contains(name)) {
-				this.field = ((RecordType)record).get(name);
-				return record.resolve(_scope);
-			}else {
-				Logger.error(record + " has not a field called "+name);
-				return false;
+		if(this.record.getType() instanceof NamedType) {
+			Type temp = ((NamedType)this.record.getType()).getType();
+			if(temp instanceof RecordType) {
+				this.field = ((RecordType)temp).get(this.name);
+				
 			}
-		}else {
-			System.out.println(record.getClass().getSimpleName() );//IdentifierAccess
-			Logger.error(record + " is not a record.");
-			return false;
-		}*/
-		//TODO : initialiser l'atttribut field
+		}
 		return record.resolve(_scope);
 	}
 
@@ -73,7 +65,7 @@ public abstract class AbstractField implements Expression {
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		throw new SemanticsUndefinedException( "getType is undefined in FieldAccess.");
+		return this.field.getType();
 	}
 
 }
