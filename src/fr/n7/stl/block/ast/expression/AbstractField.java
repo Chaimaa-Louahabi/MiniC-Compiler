@@ -53,8 +53,14 @@ public abstract class AbstractField implements Expression {
 		if(this.record.getType() instanceof NamedType) {
 			Type temp = ((NamedType)this.record.getType()).getType();
 			if(temp instanceof RecordType) {
-				this.field = ((RecordType)temp).get(this.name);
+				if (((RecordType)temp).contains(this.name)) {
+					this.field = ((RecordType)temp).get(this.name);
+				} else {
+					Logger.error(this.record +" has no field named " + this.name);
+				}
 				
+			} else {
+				Logger.error(this.record +" is not a record.");
 			}
 		}
 		return record.resolve(_scope);
