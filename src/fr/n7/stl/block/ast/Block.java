@@ -95,17 +95,6 @@ public class Block {
             if (_instruction instanceof TypeDeclaration) {
                 if (this.tds.accepts((TypeDeclaration) _instruction)) {
                     tds.register((TypeDeclaration) _instruction);
-                    if (_instruction instanceof EnumerationType) {
-                    	for (LabelDeclaration l : ((EnumerationType)_instruction).getLabels()) {
-                            if (this.tds.accepts(l)) {
-                            	System.out.println(l);
-                                tds.register(l);
-                            } else {
-                                Logger.error("The identifier " + l.getName() + " is already used.");
-                                return false;
-                            }
-                    	}
-                    }
                 } else {
                     Logger.error("The identifier " + ((TypeDeclaration)_instruction).getName() + " is already used.");
                     return false;
@@ -124,15 +113,20 @@ public class Block {
 	 */
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 		 for (Instruction _instruction : this.instructions) {
-         	/*for (LabelDeclaration l : ((EnumerationType)_instruction).getLabels()) {
-                if (this.tds.accepts(l)) {
-                	System.out.println(l);
-                    tds.register(l);
-                } else {
-                    Logger.error("The identifier " + l.getName() + " is already used.");
-                    return false;
-                }
-        	}*/
+			 if (_instruction instanceof TypeDeclaration) {
+				 Type instructionType =((TypeDeclaration)_instruction).getType();
+				 if( instructionType instanceof  EnumerationType) {
+					//register all the label declarations
+                    for (LabelDeclaration l : ((EnumerationType)instructionType).getLabels()) {
+                    	if (this.tds.accepts(l)) {
+                        	tds.register(l);
+                    	} else {
+                         	Logger.error("The identifier " + l.getName() + " is already used.");
+                            return false;
+                        }
+                    }
+				}
+			}
             if (!_instruction.resolve(tds)) {
                 Logger.error("Couldn't resolve " + _instruction + " at Block.");
                 return false;

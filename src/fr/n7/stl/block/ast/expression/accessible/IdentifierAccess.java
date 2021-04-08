@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.expression.AbstractAccess;
 import fr.n7.stl.block.ast.instruction.declaration.ConstantDeclaration;
 import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
+import fr.n7.stl.block.ast.type.declaration.LabelDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
@@ -81,6 +82,9 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 						return true;
 					} else if  (_declaration instanceof ParameterDeclaration){
 	                    this.expression = new ParameterAccess((ParameterDeclaration) _declaration);
+					    return true;
+					} else if  (_declaration instanceof LabelDeclaration){
+						this.expression = new ConstantAccess((ConstantDeclaration) _declaration);
 					    return true;
 					}else {
 						Logger.error("The declaration for " + this.name + " is of the wrong kind.");
