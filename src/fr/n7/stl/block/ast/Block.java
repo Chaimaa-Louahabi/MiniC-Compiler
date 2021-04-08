@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.*;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.type.declaration.*;
+import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.tam.ast.Fragment;
@@ -99,14 +100,18 @@ public class Block {
                     return false;
                 }
             }
-            if (_instruction instanceof LabelDeclaration) {
+           /* if (_instruction instanceof TypeDeclaration) {
+            	if (((TypeDeclaration)_instruction).getType() instanceof EnumerationType) {
+            		
+            	}
             	if (this.tds.accepts((LabelDeclaration) _instruction)) {
+            		System.out.println("here");
             		tds.register((LabelDeclaration) _instruction);
             	} else {
             		Logger.error("The identifier " + ((LabelDeclaration)_instruction).getName() + " is already used.");
             		return false;
             	}
-            }
+            }*/
 		}
         return true;
 	}

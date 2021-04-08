@@ -7,14 +7,14 @@ test{
     int y = snd couple;
     //tester array type
     int table []= new int[3];
-    table[2] = 2 + N;
+    table[2] = 2 + N + table[1];
     int v = (int) 1;
     //tester pointer type
     int *ptr = &i;
     int j = *ptr;
     //tester enum type
     typedef enum grade { A, B, C, D}Grade;
-    //Grade noteMax = A;
+    Grade noteMax = A;
     //tester struct type
     typedef struct etudiant{
         int age;

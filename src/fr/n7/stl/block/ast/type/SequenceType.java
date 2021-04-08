@@ -32,8 +32,12 @@ public class SequenceType implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		if (_other instanceof SequenceType) {
-			SequenceType _local = (SequenceType) _other;
+		Type target = _other;
+		if (target instanceof NamedType) {
+			target = ((NamedType) target).getType();					
+		}
+		if (target instanceof SequenceType) {
+			SequenceType _local = (SequenceType) target;
 			if (this.types.size() == _local.types.size()) {
 				Iterator<Type> i1 = this.types.iterator();
 				Iterator<Type> i2 = _local.types.iterator();
@@ -46,22 +50,22 @@ public class SequenceType implements Type {
 				return false;
 			}
 		} else {
-			if (_other instanceof ArrayType) {
+			if (target instanceof ArrayType) {
 				boolean _result = true;
-				Type _element = ((ArrayType)_other).getType();
+				Type _element = ((ArrayType)target).getType();
 				Iterator<Type> _iter = this.types.iterator();
 				while (_iter.hasNext() && _result) {
 					_result = _result && _iter.next().equalsTo(_element);
 				}
 				return _result;
 			} else {
-				if (_other instanceof RecordType) {
-					return this.equalsTo(((RecordType)_other).erase());
+				if (target instanceof RecordType) {
+					return this.equalsTo(((RecordType)target).erase());
 				} else {
-					if (_other instanceof CoupleType) {
+					if (target instanceof CoupleType) {
 						if (this.types.size() == 2) {
-							return this.types.get(0).equalsTo(((CoupleType)_other).getFirst()) &&
-									this.types.get(1).equalsTo(((CoupleType)_other).getSecond());
+							return this.types.get(0).equalsTo(((CoupleType)target).getFirst()) &&
+									this.types.get(1).equalsTo(((CoupleType)target).getSecond());
 						} else {
 							return false;
 						}
@@ -78,8 +82,12 @@ public class SequenceType implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		if (_other instanceof SequenceType) {
-			SequenceType _local = (SequenceType) _other;
+		Type target = _other;
+		if (target instanceof NamedType) {
+			target = ((NamedType) target).getType();					
+		}
+		if (target instanceof SequenceType) {
+			SequenceType _local = (SequenceType) target;
 			if (this.types.size() == _local.types.size()) {
 				Iterator<Type> i1 = this.types.iterator();
 				Iterator<Type> i2 = _local.types.iterator();
@@ -92,22 +100,22 @@ public class SequenceType implements Type {
 				return false;
 			}
 		} else {
-			if (_other instanceof ArrayType) {
+			if (target instanceof ArrayType) {
 				boolean _result = true;
-				Type _element = ((ArrayType)_other).getType();
+				Type _element = ((ArrayType)target).getType();
 				Iterator<Type> _iter = this.types.iterator();
 				while (_iter.hasNext() && _result) {
 					_result = _result && _iter.next().equalsTo(_element);
 				}
 				return _result;
 			} else {
-				if (_other instanceof RecordType) {
-					return this.compatibleWith(((RecordType)_other).erase());
+				if (target instanceof RecordType) {
+					return this.compatibleWith(((RecordType)target).erase());
 				} else {
-					if (_other instanceof CoupleType) {
+					if (target instanceof CoupleType) {
 						if (this.types.size() == 2) {
-							return this.types.get(0).compatibleWith(((CoupleType)_other).getFirst()) &&
-									this.types.get(1).compatibleWith(((CoupleType)_other).getSecond());
+							return this.types.get(0).compatibleWith(((CoupleType)target).getFirst()) &&
+									this.types.get(1).compatibleWith(((CoupleType)target).getSecond());
 						} else {
 							return false;
 						}
@@ -124,8 +132,12 @@ public class SequenceType implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		if (_other instanceof SequenceType) {
-			SequenceType _local = (SequenceType) _other;
+		Type target = _other;
+		if (target instanceof NamedType) {
+			target = ((NamedType) target).getType();					
+		}
+		if (target instanceof SequenceType) {
+			SequenceType _local = (SequenceType) target;
 			SequenceType _result = new SequenceType();
 			if (this.types.size() == _local.types.size()) {
 				Iterator<Type> i1 = this.types.iterator();
