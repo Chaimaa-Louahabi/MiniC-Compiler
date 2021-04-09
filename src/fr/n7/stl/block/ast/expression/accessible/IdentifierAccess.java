@@ -76,7 +76,7 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 					throw new SemanticsUndefinedException( "Collect and partial resolve have probably not been implemented correctly. The identifier " + this.name + " should have not been resolved previously.");
 				} else {
 					/* These kinds are handled by full resolve. */
-					if (_declaration instanceof ConstantDeclaration) {
+					if (_declaration instanceof ConstantDeclaration) { 
 						// TODO : refactor the management of Constants
 						this.expression = new ConstantAccess((ConstantDeclaration) _declaration);
 						return true;
