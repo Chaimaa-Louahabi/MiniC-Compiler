@@ -117,9 +117,10 @@ public class Block {
 				 Type instructionType =((TypeDeclaration)_instruction).getType();
 				 if( instructionType instanceof  EnumerationType) {
 					 //register all the label declarations
-					 //try to register them as constants, value entier but how to initialise their value of type Expression
+					 //TODO: try to register them as constants, value entier but how to initialise their value of type Expression
                     for (LabelDeclaration l : ((EnumerationType)instructionType).getLabels()) {
                     	if (this.tds.accepts(l)) {
+                    		l.setType((EnumerationType)instructionType);
                         	tds.register(l);
                     	} else {
                          	Logger.error("The identifier " + l.getName() + " is already used.");

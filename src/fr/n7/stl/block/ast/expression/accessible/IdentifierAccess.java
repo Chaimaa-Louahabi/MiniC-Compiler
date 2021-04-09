@@ -28,7 +28,7 @@ import fr.n7.stl.util.Logger;
 public class IdentifierAccess extends AbstractIdentifier implements AccessibleExpression {
 	
 	protected AbstractAccess expression;
-	
+	protected Type type; //used only for enumeration type
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
 	 * @param _name Name of the used variable.
@@ -83,6 +83,9 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 					} else if  (_declaration instanceof ParameterDeclaration){
 	                    this.expression = new ParameterAccess((ParameterDeclaration) _declaration);
 					    return true;
+					} else if  (_declaration instanceof LabelDeclaration){
+						this.type = ((LabelDeclaration)_declaration).getType();
+					    return true;
 					} else {
 						Logger.error("The declaration for " + this.name + " is of the wrong kind.");
 						return false;
@@ -104,7 +107,9 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 	public Type getType() {
 		if (this.expression != null) {
 			return this.expression.getType();
-		} else {
+		} else if (this.type != null){
+			return this.type;
+		}else {
 			throw new SemanticsUndefinedException( "Collect and Resolve have probably not been implemented correctly. The identifier " + this.name + " has not been resolved.");
 		}
 	}

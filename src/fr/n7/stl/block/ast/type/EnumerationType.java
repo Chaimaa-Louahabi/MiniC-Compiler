@@ -58,7 +58,23 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException("Semantics compatibleWith is not implemented in EnumerationType.");
+		if (_other instanceof NamedType) {
+			if (((NamedType)_other).getType() instanceof EnumerationType) {
+				EnumerationType temp = (EnumerationType)((NamedType)_other).getType() ;
+				for(int i = 0;i<this.length(); i++) {
+					String left = this.labels.get(i).getName();
+					String right = temp.getLabels().get(i).getName();
+					if (! left.equals(right)) {
+						return false;
+					}
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}else {
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -74,7 +90,7 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length is not implemented in EnumerationType.");
+		return this.labels.size();
 	}
 	
 	/* (non-Javadoc)

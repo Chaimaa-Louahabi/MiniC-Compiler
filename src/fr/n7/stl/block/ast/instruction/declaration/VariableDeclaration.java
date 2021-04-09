@@ -9,11 +9,10 @@ import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
-import fr.n7.stl.block.ast.type.EnumerationType;
-import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a variable declaration instruction.
@@ -113,14 +112,6 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		if (this.type instanceof NamedType) {
-			this.type.resolve(_scope);
-			Type temp = ((NamedType)this.type).getType();
-			if(temp instanceof EnumerationType) {
-				//vérifier que value est bien un label de cette enumeration
-				System.out.println(this.value + "in VariableDeclaration");
-			}
-		}
 		return this.type.resolve(_scope) && this.value.resolve(_scope);
 	}
 
@@ -133,7 +124,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 		 if (result){
 			 return true;
 		 }else {
-			 System.out.println(this.value.getType() + " not compatible with " + this.type);
+			 Logger.error(this.value.getType() + " not compatible with " + this.type);
 			 return false;
 		 }
 	}

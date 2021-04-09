@@ -30,7 +30,7 @@ public class LabelDeclaration implements Declaration {
 	
 	@Override
 	public Type getType() {
-		return this.type; // TODO : Should be the type of the enum containing the label...
+		return this.type; 
 	}
 
 	/* (non-Javadoc)
