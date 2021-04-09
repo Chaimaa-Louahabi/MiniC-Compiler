@@ -83,10 +83,7 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 					} else if  (_declaration instanceof ParameterDeclaration){
 	                    this.expression = new ParameterAccess((ParameterDeclaration) _declaration);
 					    return true;
-					} else if  (_declaration instanceof LabelDeclaration){
-						this.expression = new ConstantAccess((ConstantDeclaration) _declaration);
-					    return true;
-					}else {
+					} else {
 						Logger.error("The declaration for " + this.name + " is of the wrong kind.");
 						return false;
 	                }

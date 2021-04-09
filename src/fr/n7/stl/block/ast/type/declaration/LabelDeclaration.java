@@ -15,7 +15,7 @@ import fr.n7.stl.block.ast.type.Type;
 public class LabelDeclaration implements Declaration {
 
 	private String name;
-
+	private Type type;
 	public LabelDeclaration(String _name) {
 		this.name = _name;
 	}
@@ -30,7 +30,7 @@ public class LabelDeclaration implements Declaration {
 	
 	@Override
 	public Type getType() {
-		return AtomicType.VoidType; // TODO : Should be the type of the enum containing the label...
+		return this.type; // TODO : Should be the type of the enum containing the label...
 	}
 
 	/* (non-Javadoc)
@@ -39,6 +39,10 @@ public class LabelDeclaration implements Declaration {
 	@Override
 	public String toString() {
 		return this.name + ";";
+	}
+	
+	public void setType(Type labelType) {
+		this.type = labelType;
 	}
 
 }

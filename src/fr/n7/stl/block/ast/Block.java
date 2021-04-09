@@ -116,7 +116,8 @@ public class Block {
 			 if (_instruction instanceof TypeDeclaration) {
 				 Type instructionType =((TypeDeclaration)_instruction).getType();
 				 if( instructionType instanceof  EnumerationType) {
-					//register all the label declarations
+					 //register all the label declarations
+					 //try to register them as constants, value entier but how to initialise their value of type Expression
                     for (LabelDeclaration l : ((EnumerationType)instructionType).getLabels()) {
                     	if (this.tds.accepts(l)) {
                         	tds.register(l);
@@ -127,6 +128,7 @@ public class Block {
                     }
 				}
 			}
+			 
             if (!_instruction.resolve(tds)) {
                 Logger.error("Couldn't resolve " + _instruction + " at Block.");
                 return false;

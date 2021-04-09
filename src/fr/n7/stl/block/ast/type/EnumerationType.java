@@ -83,7 +83,7 @@ public class EnumerationType implements Type, Declaration {
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 		for (LabelDeclaration l : this.labels) {
-			_scope.register(l);
+			l.setType(this);
 		}
 		return true;
 	}
