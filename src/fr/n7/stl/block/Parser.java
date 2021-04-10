@@ -7,9 +7,14 @@ package fr.n7.stl.block;
 
 import java_cup.runtime.*;
 import fr.n7.stl.block.Lexer;
+import fr.n7.stl.tam.ast.impl.*;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PrintStream;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import java.io.FileOutputStream;
 import java.util.*;
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.block.ast.expression.*;
@@ -708,6 +713,9 @@ public class Parser extends java_cup.runtime.lr_parser {
 		this();
 		this.name = _name;
 	}
+	public String getName(){
+		return this.name;
+	}
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
@@ -755,6 +763,18 @@ class CUP$Parser$actions {
 						System.out.println("Resolve succeeded.");
 						if (bloc.checkType()) {
 							System.out.println("CheckType succeeded.");
+							bloc.allocateMemory( Register.SB, 0);
+                            Fragment code = bloc.getCode(new TAMFactoryImpl());
+                            System.out.println( "Generated code:" );
+                            System.out.println( code );
+                              File file = new File(parser.getName() + "_tam");
+                              PrintStream printer = null;
+                              try {
+                                 printer = new PrintStream( new FileOutputStream(file) );
+                                printer.println( code );
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } 
 						} else {
 							System.out.println("CheckType failed." );
 						}

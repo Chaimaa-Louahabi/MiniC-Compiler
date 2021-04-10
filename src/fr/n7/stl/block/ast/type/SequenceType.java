@@ -76,6 +76,9 @@ public class SequenceType implements Type {
 			}
 		}
 	}
+	public List<Type> getTypes() {
+		return this.types;
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#compatibleWith(fr.n7.stl.block.ast.Type)

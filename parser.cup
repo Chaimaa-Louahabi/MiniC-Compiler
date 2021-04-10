@@ -6,9 +6,14 @@ package fr.n7.stl.block;
 
 import java_cup.runtime.*;
 import fr.n7.stl.block.Lexer;
+import fr.n7.stl.tam.ast.impl.*;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PrintStream;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import java.io.FileOutputStream;
 import java.util.*;
 
 // Elements du métamodèle pour la construction de l'arbre abstrait
@@ -32,6 +37,9 @@ parser code {:
 	public Parser(String _name) {
 		this();
 		this.name = _name;
+	}
+	public String getName(){
+		return this.name;
 	}
 :}
 
@@ -120,6 +128,18 @@ Program ::= UL_Identificateur:nom Bloc:bloc
 						System.out.println("Resolve succeeded.");
 						if (bloc.checkType()) {
 							System.out.println("CheckType succeeded.");
+							bloc.allocateMemory( Register.SB, 0);
+                            Fragment code = bloc.getCode(new TAMFactoryImpl());
+                            System.out.println( "Generated code:" );
+                            System.out.println( code );
+                              File file = new File(parser.getName() + "_tam");
+                              PrintStream printer = null;
+                              try {
+                                 printer = new PrintStream( new FileOutputStream(file) );
+                                printer.println( code );
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } 
 						} else {
 							System.out.println("CheckType failed." );
 						}

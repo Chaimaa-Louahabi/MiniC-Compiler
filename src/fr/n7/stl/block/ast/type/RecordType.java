@@ -69,7 +69,17 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		if(_other instanceof RecordType){
+			boolean flag = false;
+			if(fields.size() == ((RecordType) _other).fields.size()){
+				flag = true;
+				for(int i=0;i<fields.size();i++){
+					flag = flag && fields.get(i).equals(((RecordType) _other).fields.get(i));
+				}
+			}
+			return flag && name.equals(((RecordType) _other).name);
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +87,21 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		if(_other instanceof RecordType)
+			return _other instanceof RecordType;
+		if(_other instanceof SequenceType){
+			System.out.println( _other.length());
+			if(length() != _other.length())
+				throw new SemanticsUndefinedException("Sequence Type size mismatched with the record fields");
+			else{
+				for(int i=0;i<fields.size();i++){
+					if(!fields.get(i).getType().compatibleWith(((SequenceType) _other).getTypes().get(i)))
+						throw new SemanticsUndefinedException("Type mismatched. Expected ");
+				}
+				return true;
+			}
+		}
+		return _other instanceof AtomicType;
 	}
 
 	/* (non-Javadoc)
@@ -85,7 +109,15 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		if(compatibleWith(_other)){
+			Type mergedType = new RecordType(name);
+			for(int i=0;i<((RecordType) _other).fields.size();i++){
+				if(!fields.contains(((RecordType) _other).fields.get(i)))
+					fields.add(((RecordType) _other).fields.get(i));
+			}
+			return mergedType;
+		}
+		return null;
 	}
 
 	/* (non-Javadoc)
