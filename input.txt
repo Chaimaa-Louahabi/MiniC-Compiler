@@ -1,13 +1,24 @@
+/*test {
+    int v = 1;
+    int *ptr = &v;
+    int j = *ptr;
+    *ptr = 2;
+    int t[] = new int[5];
+    int i = t[3];
+    t[3] = 4;
+ }
+ */
 test{
-	//int i = 1;
-	//const int N = 100;
+	/*int i = 1;
+	const int N = 100;
     //tester couple type
     <int, int> couple = <2, 3>;
     int x = fst couple;
     int y = snd couple;
+    */
     //tester array type
-    /*int table []= new int[3];
-    table[2] = 2 + N + table[1];
+    int table []= new int[3];
+    /*table[2] = 2 + N + table[1];
     int v = (int) 1;
     //tester pointer type
     int *ptr = &i;
