@@ -134,6 +134,8 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
+		this.register = _register;
+		this.offset = _offset;
 		return this.type.length();
 	}
 
@@ -145,6 +147,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 		Fragment frg = _factory.createFragment();
 		frg.add(_factory.createPush(this.type.length()));
 		frg.append(this.value.getCode(_factory));
+		frg.add(_factory.createStore(register, offset, this.type.length()));
 		return frg;
 	}
 

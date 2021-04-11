@@ -1,6 +1,6 @@
 test{
-	int i = 1;
-	const int N = 100;
+	//int i = 1;
+	//const int N = 100;
     //tester couple type
     <int, int> couple = <2, 3>;
     /*int x = fst couple;
