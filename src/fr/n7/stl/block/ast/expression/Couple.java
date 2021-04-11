@@ -80,7 +80,6 @@ public class Couple implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frg = _factory.createFragment();
-		//frg.add(_factory.createPush(this.first.getType().length() + this.second.getType().length()));
 		frg.append(this.first.getCode(_factory));
 		frg.append(this.second.getCode(_factory));
 		return frg;
