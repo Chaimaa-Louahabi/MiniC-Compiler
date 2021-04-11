@@ -134,7 +134,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory is undefined in VariableDeclaration.");
+		return this.type.length();
 	}
 
 	/* (non-Javadoc)
@@ -142,7 +142,10 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode is undefined in VariableDeclaration.");
+		Fragment frg = _factory.createFragment();
+		frg.add(_factory.createPush(this.type.length()));
+		frg.append(this.value.getCode(_factory));
+		return frg;
 	}
 
 }

@@ -162,6 +162,7 @@ public class Block {
 		for(Instruction ins : instructions){
 			address += ins.allocateMemory(_register,address);
 		}
+		//library.MAlloc
 	}
 
 	/**
