@@ -7,7 +7,7 @@ test {
     //*ptr = 2;
     int t[] = new int[5];
     int i = t[3];
-    //t[3] = 4;
+    t[3] = 4;
  
  /*
 test{

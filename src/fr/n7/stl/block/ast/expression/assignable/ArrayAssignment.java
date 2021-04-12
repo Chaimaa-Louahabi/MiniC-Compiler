@@ -3,8 +3,8 @@
  */
 package fr.n7.stl.block.ast.expression.assignable;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractArray;
+import fr.n7.stl.block.ast.expression.BinaryOperator;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -29,7 +29,19 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
+		Fragment frag = _factory.createFragment();
+		frag.append(this.array.getCode(_factory));
+		frag.addSuffix(";valeur de l'indice");
+		frag.addComment("ArrayAssignement " + this.array);
+		frag.append(this.index.getCode(_factory));
+		frag.addSuffix(";taille de " +this.getType());
+		frag.add(_factory.createLoadL(this.getType().length()));
+		frag.addSuffix("; indice * taille(type élément) ");
+		frag.add(TAMFactory.createBinaryOperator(BinaryOperator.Multiply));
+		frag.addSuffix("; ajout à l'adresse de début du tableau");
+		frag.add(TAMFactory.createBinaryOperator(BinaryOperator.Add));
+		frag.add(_factory.createStoreI(1));
+		return frag;
 	}
 
 	
