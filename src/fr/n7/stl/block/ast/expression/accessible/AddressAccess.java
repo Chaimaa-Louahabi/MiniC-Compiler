@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
+import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
@@ -20,6 +21,7 @@ import fr.n7.stl.tam.ast.TAMFactory;
 public class AddressAccess implements AccessibleExpression {
 
 	protected AssignableExpression assignable;
+	protected Declaration v ;
 
 	public AddressAccess(AssignableExpression _assignable) {
 		this.assignable = _assignable;
@@ -30,6 +32,7 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
+		v = _scope.get(assignable.toString());
 		return assignable.collect(_scope);	
 	}
 
@@ -38,6 +41,7 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
+		//v = _scope.get(assignable.toString());
 		return assignable.resolve(_scope);	
 	}
 
@@ -54,7 +58,17 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "getCode is undefined in AddressAccess.");
+		/*Fragment frag = _factory.createFragment();
+		System.out.println(v);
+		if (v != null && v instanceof VariableDeclaration){
+			System.out.println("here");
+			int offset = ((VariableDeclaration)v).getOffset();
+			frag.add(_factory.createLoadA(((VariableDeclaration)v).getRegister(), offset));
+		} else {
+			System.out.println("there");
+			frag.add(_factory.createLoadA(this.assignable.toString()));
+		}
+		return frag;*/throw new SemanticsUndefinedException("Adress Access getcode");
 	}
 
 }

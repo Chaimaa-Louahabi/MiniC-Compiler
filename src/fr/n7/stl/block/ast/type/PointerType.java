@@ -62,7 +62,7 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length undefined in PointerType.");
+		return this.getPointedType().length();
 	}
 
 	/* (non-Javadoc)
