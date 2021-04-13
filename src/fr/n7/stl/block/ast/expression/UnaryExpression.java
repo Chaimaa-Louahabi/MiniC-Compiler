@@ -95,9 +95,9 @@ public class UnaryExpression implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = this.parameter.getCode(_factory);
 		_result.addComment(this.toString());
-		if (this.parameter instanceof AccessibleExpression) {
+		/*if (this.parameter instanceof AccessibleExpression) {
 			_result.add(_factory.createLoadI(this.parameter.getType().length()));
-		}
+		}*/
 		_result.add(TAMFactory.createUnaryOperator(this.operator));
 		return _result;
 	}
