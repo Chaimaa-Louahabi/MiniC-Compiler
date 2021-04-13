@@ -90,7 +90,16 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConditionalExpression.");
+		Fragment frag = _factory.createFragment();
+		int idCond = _factory.createLabelNumber();
+		frag.append(this.condition.getCode(_factory));
+		frag.add(_factory.createJumpIf("elseBranch"+ idCond,0));
+		frag.append(thenExpression.getCode(_factory));
+		frag.add(_factory.createJump("EndConditional"+idCond));
+		frag.addSuffix("elseBranch"+idCond);
+		frag.append(elseExpression.getCode(_factory));
+		frag.addSuffix("EndConditional"+idCond);
+		return frag;
 	}
 
 }
