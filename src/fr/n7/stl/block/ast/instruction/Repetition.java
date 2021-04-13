@@ -68,7 +68,8 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory undefined in Repetition.");
+		this.body.allocateMemory(_register,_offset);
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -76,7 +77,15 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Repetition.");
+		Fragment fragment = _factory.createFragment();
+		int id = _factory.createLabelNumber();
+		fragment.append(condition.getCode(_factory));
+		fragment.addPrefix("while"+id);
+		fragment.add(_factory.createJumpIf("End while"+id,0));
+		fragment.append(body.getCode(_factory));
+		fragment.add(_factory.createJump("while"+id));
+		fragment.addSuffix("End while"+id);
+		return fragment;
 	}
 
 }
