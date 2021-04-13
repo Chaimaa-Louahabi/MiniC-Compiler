@@ -176,11 +176,13 @@ public class Block {
 		Fragment frag = _factory.createFragment();
 		ArrayList<FunctionDeclaration> functions = new ArrayList<FunctionDeclaration> ();
 		for(Instruction ins : instructions){
+			//the code generated for function declarations will be at the end after HALT
 			if(ins instanceof FunctionDeclaration){
 				functions.add((FunctionDeclaration) ins);
 				continue;
+			} else {
+				frag.append(ins.getCode(_factory));
 			}
-			frag.append(ins.getCode(_factory));
 		}
 		if(instructions.size() == 0){
 			frag.add(_factory.createPush(0));
