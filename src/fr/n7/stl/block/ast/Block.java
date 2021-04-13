@@ -3,6 +3,7 @@
  */
 package fr.n7.stl.block.ast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.instruction.Instruction;
@@ -173,10 +174,10 @@ public class Block {
 	 */
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment frag = _factory.createFragment();
-		FunctionDeclaration f = null;
+		ArrayList<FunctionDeclaration> functions = new ArrayList<FunctionDeclaration> ();
 		for(Instruction ins : instructions){
 			if(ins instanceof FunctionDeclaration){
-				f = (FunctionDeclaration) ins;
+				functions.add((FunctionDeclaration) ins);
 				continue;
 			}
 			frag.append(ins.getCode(_factory));
@@ -185,9 +186,11 @@ public class Block {
 			frag.add(_factory.createPush(0));
 
 		}
-		if(f!=null){
+		if(!functions.isEmpty()){
 			frag.add(_factory.createHalt());
-			frag.append(f.getCode(_factory));
+			for (FunctionDeclaration f: functions) {
+				frag.append(f.getCode(_factory));
+			}
 		}
 		return frag;
 	}
