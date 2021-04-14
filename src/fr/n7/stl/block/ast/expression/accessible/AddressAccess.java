@@ -58,8 +58,9 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		/*Fragment frag = _factory.createFragment();
-		System.out.println(v);
+		Fragment frag = _factory.createFragment();
+		//frag.append(this.assignable.getCode(_factory));
+		//System.out.println(v);
 		if (v != null && v instanceof VariableDeclaration){
 			System.out.println("here");
 			int offset = ((VariableDeclaration)v).getOffset();
@@ -68,7 +69,7 @@ public class AddressAccess implements AccessibleExpression {
 			System.out.println("there");
 			frag.add(_factory.createLoadA(this.assignable.toString()));
 		}
-		return frag;*/throw new SemanticsUndefinedException("Adress Access getcode");
+		return frag;//throw new SemanticsUndefinedException("Adress Access getcode");
 	}
 
 }

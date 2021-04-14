@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.block.ast.expression.AbstractAccess;
 import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -18,7 +19,7 @@ public class ParameterAccess extends AbstractAccess {
 	
 	protected ParameterDeclaration declaration;
 	
-	/**
+	/** 
 	 * Creates a variable use expression Abstract Syntax Tree node.
 	 * @param _name Name of the used variable.
 	 */
@@ -37,7 +38,12 @@ public class ParameterAccess extends AbstractAccess {
 	 * @see fr.n7.stl.block.ast.expression.AbstractUse#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ParameterUse.");
+		Fragment frag = _factory.createFragment();
+        frag.add(_factory.createLoad(
+                Register.LB, 
+                declaration.getOffset(),
+                declaration.getType().length()));
+        return frag;
 	}
 
 }

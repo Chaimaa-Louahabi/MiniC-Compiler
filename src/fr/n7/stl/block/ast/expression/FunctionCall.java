@@ -85,7 +85,7 @@ public class FunctionCall implements Expression {
                 	return false;
             }
         } else {
-			Logger.error(this.name + "not defined");
+			Logger.error(this.name + " not defined");
         }
 
         return true;

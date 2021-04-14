@@ -13,6 +13,7 @@ import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.block.ast.type.Type;
+import fr.n7.stl.block.ast.type.PointerType;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -49,6 +50,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 * AST node for the body of the function
 	 */
 	protected Block body;
+	private int offset;
 
 	/**
 	 * Builds an AST node for a function declaration
@@ -101,6 +103,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
+		
         this.tds = new SymbolTable(_scope);
         // Représenter la valeur de retour par une variable de nom "return" dont le type est le type de retour de la fonction
         tds.register(new VariableDeclaration("return", this.type,null));
@@ -131,7 +134,19 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in FunctionDeclaration.");
+		this.offset = _offset;
+		int _paramSize = 0;
+		// init parameters offset
+		for(int i = parameters.size()-1;i>=0;i--){
+			if(!(parameters.get(i).getType() instanceof PointerType)){
+				parameters.get(i).setOffset(-1*_paramSize);
+			}
+			_paramSize+= parameters.get(i).getType().length();
+
+		}
+		body.allocateMemory(Register.LB,3);
+
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -139,7 +154,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
+		    Fragment frag = _factory.createFragment();
+	        frag.append(body.getCode(_factory));
+	        frag.addPrefix(this.name);
+	        return frag;
 	}
+
 
 }
