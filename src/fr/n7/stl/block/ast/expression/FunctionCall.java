@@ -14,7 +14,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
-
+import fr.n7.stl.tam.ast.Register;
 /**
  * Abstract Syntax Tree node for a function call expression.
  * @author Marc Pantel
@@ -117,7 +117,13 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionCall.");
+		Fragment frag = _factory.createFragment();
+		for (Expression arg : this.arguments) {
+			frag.append(arg.getCode(_factory));
+		}
+		frag.addComment("Function Call for " + this.name);
+		frag.add(_factory.createCall(name, Register.SB));
+		return frag;
 	}
 
 }
