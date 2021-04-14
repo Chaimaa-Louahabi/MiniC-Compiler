@@ -144,7 +144,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 			_paramSize+= parameters.get(i).getType().length();
 
 		}
-		body.allocateMemory(Register.LB,3);
+		body.allocateMemory(Register.LB, 3);
 
 		return 0;
 	}
@@ -157,7 +157,16 @@ public class FunctionDeclaration implements Instruction, Declaration {
 		    Fragment frag = _factory.createFragment();
 	        frag.append(body.getCode(_factory));
 	        frag.addPrefix(this.name);
+			frag.add(_factory.createReturn(this.getType().length(), getArgsMemorySize()));
 	        return frag;
+	}
+	
+	private int getArgsMemorySize() {
+		int argsSize = 0;
+		for(ParameterDeclaration arg : this.parameters)
+			argsSize += arg.getType().length();
+		
+		return argsSize;
 	}
 
 

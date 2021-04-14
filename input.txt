@@ -53,7 +53,7 @@ test{
     int result = max(5,6);
     //print "the max of 5 and 6 is " + result;
 }
-*/
+
 test {
    int fact( int n ) {
      if ( n == 0 ) {
@@ -63,4 +63,26 @@ test {
      }
    }
    print fact ( 5 );
+ }*/
+pgcd {
+   const int test = 0;
+   int pgcd( <int,int> c ) {
+     int a = fst c;
+     int b = snd c;
+     while (a * b != test) {
+       if ( a > b ) {
+ 	int na = a-b;
+ 	a = na;
+       } else {
+ 	int nb = b-a;
+ 	b = nb;
+       }
+     }
+     int res = a;
+     if (res == test) {
+       res = b;
+     }
+     return res;
+   }
+   print pgcd( <47,53> );
  }

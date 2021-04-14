@@ -21,6 +21,7 @@ public class Return implements Instruction {
 
 	protected Expression value;
 	protected Type returnType;
+	private int offset;
 
 	public Return(Expression _value) {
 		this.value = _value;
@@ -74,7 +75,6 @@ public class Return implements Instruction {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
         fragment.append(value.getCode(_factory));
-        fragment.add(_factory.createReturn(value.getType().length(), value.getType().length()));
         return fragment;
 	}
 
