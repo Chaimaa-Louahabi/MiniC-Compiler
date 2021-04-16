@@ -768,7 +768,7 @@ class CUP$Parser$actions {
                             code.add((new TAMFactoryImpl()).createHalt());
                             System.out.println( "Generated code:" );
                             System.out.println( code );
-                              File file = new File("tests/" + parser.getName() + ".tam");
+                              File file = new File( parser.getName() + ".tam");
                               PrintStream printer = null;
                               try {
                                  printer = new PrintStream( new FileOutputStream(file) );

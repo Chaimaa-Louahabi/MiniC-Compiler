@@ -144,15 +144,16 @@ public class BinaryExpression implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = this.left.getCode(_factory);
-		_result.addComment(this.toString());
 		/*if (this.left instanceof AccessibleExpression) {
 			_result.add(_factory.createLoadI(this.left.getType().length()));
 		}*/
 		_result.append(this.right.getCode(_factory));
+		
 		/*if (this.right instanceof AccessibleExpression) {
 			_result.add(_factory.createLoadI(this.right.getType().length()));
 		}*/
 		_result.add(TAMFactory.createBinaryOperator(this.operator));
+		_result.addComment(this.toString());
 		return _result;
 	}
 
