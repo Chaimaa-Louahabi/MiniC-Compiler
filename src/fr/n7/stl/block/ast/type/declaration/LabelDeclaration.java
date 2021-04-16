@@ -16,6 +16,7 @@ public class LabelDeclaration implements Declaration {
 
 	private String name;
 	private Type type;
+	private int intValue;
 	public LabelDeclaration(String _name) {
 		this.name = _name;
 	}
@@ -44,5 +45,11 @@ public class LabelDeclaration implements Declaration {
 	public void setType(Type labelType) {
 		this.type = labelType;
 	}
-
+	
+	public void setIntValue(int v) {
+		this.intValue = v;
+	}
+	public int getIntValue() {
+		return this.intValue;
+	}
 }

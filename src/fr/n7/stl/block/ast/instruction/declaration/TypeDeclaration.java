@@ -1,10 +1,14 @@
 package fr.n7.stl.block.ast.instruction.declaration;
 
+import java.util.List;
+
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.EnumerationType;
 import fr.n7.stl.block.ast.type.Type;
+import fr.n7.stl.block.ast.type.declaration.LabelDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -103,7 +107,14 @@ public class TypeDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		return _factory.createFragment();
+		Fragment frag = _factory.createFragment();
+		/*if (this.type instanceof EnumerationType) {
+			List<LabelDeclaration> l = ((EnumerationType)this.type).getLabels();
+			for (LabelDeclaration label : l) {
+				label.getIntValue();
+			}
+		}*/
+		return frag;
 	}
 
 }

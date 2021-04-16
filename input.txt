@@ -1,14 +1,13 @@
-/*test {
+test {
     int v = 1;
     int *ptr = &v;
     int j = *ptr;
-    *ptr = 2;
+    //*ptr = 2;
     int t[] = new int[5];
     int i = t[3];
     t[3] = 4;
- 
-
-test{
+}
+/*test{
 	int i = 1;
 	const int N = 100;
 	
@@ -24,8 +23,10 @@ test{
     //tester pointer type
     int *ptr = &i;
     int j = *ptr;
+    
     //tester enum type
     typedef enum grade { A, B, C, D}Grade;
+    
     Grade noteMax = A;
     //tester struct type
     typedef struct etudiant{
@@ -52,6 +53,7 @@ test{
     //tester function call
     int result = max(5,6);
     //print "the max of 5 and 6 is " + result;
+    
 }
 
 test {
@@ -63,7 +65,7 @@ test {
      }
    }
    print fact ( 5 );
- }*/
+ }
 pgcd {
    const int test = 0;
    int pgcd( <int,int> c ) {
@@ -71,11 +73,11 @@ pgcd {
      int b = snd c;
      while (a * b != test) {
        if ( a > b ) {
- 	int na = a-b;
- 	a = na;
+ 			int na = a-b;
+ 			a = na;
        } else {
- 	int nb = b-a;
- 	b = nb;
+ 			int nb = b-a;
+ 			b = nb;
        }
      }
      int res = a;
@@ -85,4 +87,5 @@ pgcd {
      return res;
    }
    print pgcd( <47,53> );
- }
+   
+ }*/

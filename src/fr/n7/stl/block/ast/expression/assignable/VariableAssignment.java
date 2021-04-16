@@ -35,7 +35,12 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
+		
 		return true;
+	}
+	
+	public int getOffset() {
+		return this.declaration.getOffset();
 	}
 	
 	/* (non-Javadoc)
@@ -76,7 +81,7 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 				this.declaration.getRegister(), 
 				this.declaration.getOffset(),
 				this.declaration.getType().length()));
-		_result.addComment("Variable assignement");
+		_result.addComment("Variable assignement " + name );
 		return _result;
 	}
 

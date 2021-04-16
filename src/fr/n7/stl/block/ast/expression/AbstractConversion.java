@@ -105,7 +105,10 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in TypeConversion.");
+		Fragment frag = _factory.createFragment();
+		frag.append(((Expression)this.target).getCode(_factory));
+		frag.addComment("abstractConversion");
+		return frag;
 	}
 
 }

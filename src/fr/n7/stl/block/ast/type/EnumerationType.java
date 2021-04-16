@@ -3,6 +3,7 @@
  */
 package fr.n7.stl.block.ast.type;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,9 +17,9 @@ import fr.n7.stl.block.ast.type.declaration.LabelDeclaration;
  *
  */
 public class EnumerationType implements Type, Declaration {
-	
+
 	private String name;
-	
+
 	private List<LabelDeclaration> labels;
 
 	/**
@@ -28,7 +29,7 @@ public class EnumerationType implements Type, Declaration {
 		this.name = _name;
 		this.labels = _labels;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -93,7 +94,13 @@ public class EnumerationType implements Type, Declaration {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		throw new SemanticsUndefinedException("Semantics merge is not implemented in EnumerationType.");
+		if(_other instanceof EnumerationType){
+			List<LabelDeclaration> _labelsResult = new ArrayList<>();
+			_labelsResult.addAll(((EnumerationType) _other).labels);
+			_labelsResult.addAll(labels);
+			return new EnumerationType(name,_labelsResult);
+		}
+		return AtomicType.ErrorType;
 	}
 
 	/* (non-Javadoc)
@@ -103,14 +110,17 @@ public class EnumerationType implements Type, Declaration {
 	public int length() {
 		return this.labels.size();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.type.Type#resolve(fr.n7.stl.block.ast.scope.Scope)
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
+		int i=1;
 		for (LabelDeclaration l : this.labels) {
 			l.setType(this);
+			l.setIntValue(i);
+			i++;
 		}
 		return true;
 	}
