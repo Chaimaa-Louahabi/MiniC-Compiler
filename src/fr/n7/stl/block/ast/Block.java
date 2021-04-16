@@ -35,6 +35,7 @@ public class Block {
 	 */
 	protected List<Instruction> instructions;
     protected SymbolTable tds;
+	private int memory;
 	/**
 	 * Constructor for a block.
 	 */
@@ -163,7 +164,7 @@ public class Block {
 		for(Instruction ins : instructions){
 			address += ins.allocateMemory(_register,address);
 		}
-		//library.MAlloc
+		this.memory = address - _offset;
 	}
 
 	/**
@@ -184,10 +185,7 @@ public class Block {
 				frag.append(ins.getCode(_factory));
 			}
 		}
-		if(instructions.size() == 0){
-			frag.add(_factory.createPush(0));
-
-		}
+		frag.add(_factory.createPop(0, this.memory));
 		if(!functions.isEmpty()){
 			frag.add(_factory.createHalt());
 			for (FunctionDeclaration f: functions) {
