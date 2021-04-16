@@ -87,7 +87,7 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		return this.assignable.getType().length();
+		return 0;
 	}
 
 	/* (non-Javadoc)
